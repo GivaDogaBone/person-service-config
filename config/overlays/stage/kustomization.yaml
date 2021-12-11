@@ -1,42 +1,43 @@
-namePrefix: stage-  
+namePrefix: stage-
 commonLabels:
   variant: stage
 
-bases:
-- ../../base
 
 # in stage we have 2 replicas
 replicas:
-- name: person-service
-  count: 2
+- count: 2
+  name: person-service
 
 # replace the image tag of the container with stage
 images:
-  - name: quay.io/wpernath/person-service:latest
-    newName: quay.io/wpernath/person-service
-    newTag: v1.0.0-test
+- digest: sha256:f6f4d1fba645f4e01f1bf527d7dbcf8abc164b3cb8f1de65cca1519e9cbe4cd6
+  name: quay.io/wpernath/person-service:latest
+  newName: quay.io/wpernath/person-service:1.0.0-beta1
 
 # generate a configmap 
 configMapGenerator:
-  - name: app-config
-    literals:
-      - APP_GREETING=We are in STAGING mode
+- literals:
+  - APP_GREETING=We are in STAGING mode
+  name: app-config
 
 # apply some patches
-patches:
   # apply health checks to deployment
-  - path: apply-health-checks.yaml
-    target:
-      version: v1
-      kind: Deployment
-      name: person-service
 
 # this patch needs to be done, because kustomize does not change 
 # the route target service name
-  - patch: |-
-      - op: replace
-        path: /spec/to/name
-        value: stage-person-service
-    target:
-      kind: Route
-
+patches:
+- path: apply-health-checks.yaml
+  target:
+    kind: Deployment
+    name: person-service
+    version: v1
+- patch: |-
+    - op: replace
+      path: /spec/to/name
+      value: stage-person-service
+  target:
+    kind: Route
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base
