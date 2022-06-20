@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: person-service-api
-        image: quay.io/qscapital/person-service:latest
+        image: quay.io/qsc/person-service:latest
         ports:
         - containerPort: 8080
           protocol: TCP

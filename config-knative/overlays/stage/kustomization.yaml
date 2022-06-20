@@ -11,8 +11,8 @@ replicas:
 # replace the image tag of the container with stage
 images:
 - digest: sha256:f46f65b42d61a6a2fde5a06e5c729cb5ef2ac8c1963d5dc5bc0ba647fe065711
-  name: quay.io/qscapital/person-service:latest
-  newName: quay.io/qscapital/person-service:v1.8.9-workshop
+  name: quay.io/qsc/person-service:latest
+  newName: quay.io/qsc/person-service:v1.8.9-workshop
 
 # generate a configmap 
 configMapGenerator:
