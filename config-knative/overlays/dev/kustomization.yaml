@@ -8,7 +8,7 @@ commonLabels:
 
 # replace the image tag of the container with latest
 images:
-- name: quay.io/wpernath/person-service:latest
+- name: quay.io/qscapital/person-service:latest
   newTag: v1.8.10-native
 
 # generate a configmap 
